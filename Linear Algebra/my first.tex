@@ -1,0 +1,106 @@
+\documentclass[12pt]{book}
+\usepackage{kotex}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{tcolorbox}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\x}{\mathbf{x}}
+\newcommand{\y}{\mathbf{y}}
+\newcommand{\z}{\mathbf{z}}
+\newcommand{\0}{\mathbf{0}}
+\newcommand{\F}{\mathbf{F}}
+
+
+\author{박찬영}
+\title{선형대수학}
+
+\theoremstyle{definition}
+\newtheorem{ex}{예시}[section]
+\newtheorem{thm}{정리}[section]
+\newtheorem*{defi}{정의}
+
+\begin{document}
+\tcbset{colframe=blue!75!black, colback=blue!10, coltitle=white, boxrule=0.5mm, arc=4mm, auto outer arc}
+\maketitle
+\tableofcontents
+\chapter{벡터공간}
+선형대수학은 벡터와 선형성을 보존하는 변환에 대해 다루는 과목이다.\\
+가장 처음으로는 벡터에대해 다루도록 하자.
+\section{벡터공간과 부분공간}
+\subsection{체}
+벡터공간을 정의하기 앞서 체가 무엇인지에 대해 이야기하고 간다.\\
+\begin{tcolorbox}[title=체]
+    \begin{defi}
+체는 +와 $\cdot$에 대해 다음의 성질을 만족하는 집합 $\F$이다.
+
+\begin{align*}
+    \forall x,y,z \in \mathbf{F},\ (x + y)+z=x+(y+z) \tag{체 1} \\
+    \forall x,y \in \mathbf{F},\ x+y=y+x \tag{체 2} \\
+    \exists 0 \in \mathbf{F}, \quad \text{s.t.} \quad \forall x \in \mathbf{F}, \ x +0=x \tag{체 3}\\ 
+    \forall x \in \mathbf{F}, \ \exists \ (-x) \quad \text{s.t.} \quad x+(-x)=0 \tag{체 4} \\
+    \forall x,y,z \in \mathbf{F},\ (x \cdot y) \cdot z=x\cdot(y\cdot z) \tag{체 5} \\
+    \forall x,y \in \mathbf{F},\ x\cdot y=y\cdot x \tag{체 6} \\
+    \exists 1 \in \mathbf{F}, \quad \text{s.t.} \quad \forall x \in \mathbf{F}, \ x \cdot 1 =x \tag{체 7}\\ 
+    \forall x \in \mathbf{F}, \ x\neq 0 \implies \exists \ x^{-1} \quad \text{s.t.} \quad x\cdot x^{-1}=1 \tag{체 8} \\
+    \forall x,y,z \in \mathbf{F}, \ x\cdot (y+z) = x\cdot y + x\cdot z \tag{체 9}
+\end{align*}
+\end{defi}
+\end{tcolorbox}
+\ \\대표적인 체의 예시로는 유리수체 $\mathbb{Q}$ 와 실수체, 복소수체 $\mathbb{R}$, $\mathbb{C}$가 있다.\\
+더욱 쉬운 체의 이해는 사칙연산이 잘 정의된 집합이다.\\ \\
+\begin{ex}
+$\mathbb{Z}_2 = \{0,1\}$ 에 대해 덧셈(+)과 곱셈($\cdot$) 을 다음과 같이 정의하자 \\
+\begin{align*}
+    &0 + 0 = 0,    & &0 + 1 = 1,    & &1 + 0 = 1,    & &1 + 1 = 0 \\
+    &0 \cdot 0 = 0, & &0 \cdot 1 = 0, & &1 \cdot 0 = 0, & &1 \cdot 1 = 1
+\end{align*}
+이면 $\mathbb{Z}_2$는 체가 된다.
+\end{ex}
+\subsection{벡터공간}
+이제 벡터공간을 정의 해보자. \\
+
+\begin{tcolorbox}[title=벡터공간]
+    \begin{defi}
+        체 $\mathbf{F}$에 대해 +와 $\cdot$이 정의되어 다음 조건을 만족하는 집합 $V$를 벡터공간이라고 한다.
+\begin{align*}
+    \forall a \in \mathbf{F}, \ \forall \x ,\y \in V,\ \x + \y \in V, \ a \cdot \x \in V \tag{벡터공간 1} \\
+    \forall \x ,\y ,\z \in V,\ (\x + \y)+\z =\x +(\y +\z ) \tag{벡터공간 2} \\
+    \forall \x ,\y \in V,\ \x +\y =\y +\x \tag{벡터공간 3} \\
+    \exists \0 \in V, \quad \text{s.t.} \quad \forall \x \in V, \ \x +\0 =\x \tag{벡터공간 4}\\ 
+    \forall \x \in V, \ \exists \ \y \quad \text{s.t.} \quad \x+\y=\0 \tag{벡터공간 5} \\
+    \forall a,b \in \mathbf{F},\ \forall \x \in V, \ (a \cdot b) \cdot \x = a \cdot (b \cdot \x) \tag{벡터공간 6} \\
+    \exists 1 \in \mathbf{F}, \quad \text{s.t.} \quad \forall \x \in V, \ 1 \cdot \x =\x \tag{벡터공간 7}\\ 
+    \forall a,b \in \mathbf{F},\ \forall \x \in V, \ (a + b) \cdot \x = a \cdot \x + b \cdot \x \tag{벡터공간 8} \\
+    \forall a \in \mathbf{F},\ \forall \x, \y \in V, \  a \cdot (\x +\y )= a \cdot \x + b \cdot \y \tag{벡터공간 9} 
+\end{align*}
+\end{defi}
+\end{tcolorbox}
+\ \\벡터공간의 원소를 벡터라고 부르고 체 $\mathbf{F}$의 원소를 스칼라라고 부른다.\\
+이제 벡터공간의 정의로부터 이끌어내는 성질들을 살펴보자.\\
+\ \\
+
+\begin{thm}
+    벡터공간 $V$에 대해 다음이 성립한다.\\
+    (1) $\x, \y, \z \in V$ 에 대해 $\x + \z = \y+ \z \Leftrightarrow \x=\y$ 이다.\\
+    (2) $\forall \x \in V, \ 0\cdot \x = \0 $\\
+    (3) $\x+\y=\0$인 $\y$는 유일하고, $\y=-1\cdot \x=-\x$이다.\\
+    (4) $\forall a \in \F, \ a \cdot \0 = \0$이다.\\
+\end{thm}
+
+$\textbf{증명}$\\ 
+(1) $\z +\mathbf{v} =\0 $인 $\mathbf{v} $를 더하면 보일 수 있다.\\
+(2) $0\x =(0+0)\x $에서 보일 수 있다.\\
+(3) $\x +\y =\0 =0\x =(1-1)\x =\x -\x $ (1)에의해 $\y =-\x $\\
+(4) (2)와 유사하다.\\
+
+
+
+\section{생성과 일차독립}
+\section{기저와 차원}
+\end{document}
